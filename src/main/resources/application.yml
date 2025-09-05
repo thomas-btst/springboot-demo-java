@@ -1,0 +1,19 @@
+spring:
+  application.name: demo
+  data.mongodb:
+      host: mongodb
+      port: 27017
+      database: demo
+      username: mongoadmin
+      password: secret
+      authentication-database: admin
+
+demo:
+  security:
+    jwt:
+      secret-key: bFjjVRyTVRmU6UTirWp35YDEVSkx3qwf
+      token-validity-in-seconds: 600
+    refresh-token:
+      validity-in-seconds: 604800
+    verification-key:
+      validity-in-seconds: 180

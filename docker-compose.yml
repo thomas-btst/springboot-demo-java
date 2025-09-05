@@ -1,0 +1,30 @@
+services:
+  api:
+    profiles: ["default"]
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mongodb
+
+  test:
+    profiles: ["test"]
+    build: .
+    entrypoint: "mvn test"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    profiles: ["default", "test"]
+    image: 'mongo:latest'
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    volumes:
+      - 'mongodb:/data/db'
+
+volumes:
+  mongodb:
+    driver: local
