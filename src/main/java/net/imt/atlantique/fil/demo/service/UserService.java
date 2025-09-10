@@ -3,6 +3,7 @@ package net.imt.atlantique.fil.demo.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class UserService {
 
     public UserDto getUser(String userId) {
         User user = userRepository
-            .findById(userId)
+            .findById(new ObjectId(userId))
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return userMapper.toUserDto(user);
     }
@@ -46,6 +47,6 @@ public class UserService {
     }
 
     public void deleteUser(String userId) {
-        userRepository.deleteById(userId);
+        userRepository.deleteById(new ObjectId(userId));
     }
 }
